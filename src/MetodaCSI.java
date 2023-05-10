@@ -15,16 +15,21 @@ public class MetodaCSI {
             y[i] = funkcja.apply(x[i]);
         }
 
+        // Parametry ze wzorków
         double u = 0.5;
         double l = 0.5;
         double dPrefix = 3.0 / h*h;
 
+        // Ustawienie brzegowych wartości w macierzy
         MySparseMatrix macierz = new MySparseMatrix(liczbaPodzialow + 1, liczbaPodzialow + 1);
         macierz.setItem(0, 0, 2);
         macierz.setItem(liczbaPodzialow, liczbaPodzialow-1, u);
         macierz.setItem(liczbaPodzialow, liczbaPodzialow, 2);
+        // I brzegowych wyrazów wolnych
         double[] wyrazyWolne = new double[liczbaPodzialow + 1];
         wyrazyWolne[0] = 0;
+
+        // Ustawiamy współczynniki przy M[j] według wzoru
         for (int i = 1; i < liczbaPodzialow; i++) {
             macierz.setItem(i, i - 1, u);
             macierz.setItem(i, i, 2);
@@ -36,6 +41,7 @@ public class MetodaCSI {
         macierz.absoluteTerms = wyrazyWolne;
         double[] M = macierz.solveGauss();
 
+        // Sumujemy całki z każdego przedziału
         double wynik = 0;
         for (int i = 0; i < liczbaPodzialow; i++) {
             double alfa = ((y[i+1] - y[i])/h)-((2*M[i]+M[i+1])/6)*h;
@@ -52,6 +58,7 @@ public class MetodaCSI {
             wynik += calkaOznaczona;
         }
 
+        // Cieszymy się, że wyszło i metoda nie zwraca zawsze 2 :)
         return wynik;
     }
 }
