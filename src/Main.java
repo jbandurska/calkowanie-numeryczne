@@ -8,9 +8,35 @@ public class Main {
             FileWriter resultWriter = new FileWriter("results.csv");
             resultWriter.write("liczbaPodzialow,funkcja,bladTrapezow,bladSimpsona,bladCSI\n");
 
-            Funkcja funkcja1 = new Funkcja(x -> Math.sin(3*x), x -> -Math.cos(3*x)/3);
-            Funkcja funkcja2 = new Funkcja(x -> Math.cos(x)/5, x -> Math.sin(x)/5);
-            Funkcja funkcja3 = new Funkcja(x -> 2*Math.exp(x), x -> 2*Math.exp(x));
+            // Te komentarze z całkami można wklepać do Wolfram Alpha
+            // i policzyć sobie z tego pochodną w ramach sprawdzenia
+
+            // Całka: cos^2(cos(x))*sin(3*x^2)
+            Funkcja funkcja1 = new Funkcja(
+                    x -> 2.0 * cos(cos(x)) *
+                            (3.0 * x * cos(3.0 * pow(x, 2.0)) *
+                                    cos(cos(x)) +
+                                    sin(x) * sin(3.0 * pow(x, 2.0)) *
+                                            sin(cos(x))
+                            ),
+                    x -> pow(cos(cos(x)), 2.0) *
+                            sin(3.0 * pow(x, 2.0))
+            );
+
+            // Całka: sqrt(cos^2(x))
+            Funkcja funkcja2 = new Funkcja(
+                    x -> -sqrt(pow(cos(x), 2.0))*tan(x),
+                    x -> sqrt(pow(cos(x), 2))
+            );
+
+            // Całka: (sin(x)*cos(x))/e^x^2
+            Funkcja funkcja3 = new Funkcja(
+                    x -> exp(-pow(x, 2.0)) *
+                            (-pow(sin(x), 2.0) +
+                            pow(cos(x), 2.0) -
+                            2 * x * sin(x) * cos(x)),
+                    x -> (sin(x) * cos(x)) / exp(pow(x, 2.0))
+            );
 
             ArrayList<Funkcja> funkcje = new ArrayList<>();
             funkcje.add(funkcja1);
