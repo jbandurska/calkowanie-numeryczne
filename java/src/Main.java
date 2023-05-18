@@ -43,10 +43,10 @@ public class Main {
         double a = 0;
         double b = 1;
 
-        try(FileWriter resultWriter = new FileWriter("results.csv")) {
+        try(FileWriter resultWriter = new FileWriter("../wykresy/results.csv")) {
             resultWriter.write("liczbaPodzialow,funkcja,bladTrapezow,bladSimpsona,bladCSI\n");
 
-            for (int liczbaPodzialow = 1; liczbaPodzialow <= 1001; liczbaPodzialow += 10) {
+            for (int liczbaPodzialow = 1; liczbaPodzialow <= 10001; liczbaPodzialow += 10) {
                 System.out.println("Liczba podziałów " + liczbaPodzialow);
                 for (int i = 0; i < funkcje.size(); i++) {
                     Funkcja funkcja = funkcje.get(i);
@@ -60,11 +60,11 @@ public class Main {
                     double bladSimpsona = Math.abs(prawidlowyWynik - wynikMetodaSimpsona);
                     double bladCSI = Math.abs(prawidlowyWynik - wynikMetodaCSI);
 
-//                  System.out.println("\nFunkcja " + (i + 1));
-//                  System.out.println("Prawidlowy wynik " + prawidlowyWynik);
-//                  System.out.println("Metoda Trapezów " + wynikMetodaTrapezow + ". Błąd " + bladTrapezow);
-//                  System.out.println("Metoda Simpsona " + wynikMetodaSimpsona + ". Błąd " + bladSimpsona);
-//                  System.out.println("Metoda CSI " + wynikMetodaCSI + ". Błąd " + bladCSI);
+                    // System.out.println("\nFunkcja " + (i + 1));
+                    // System.out.println("Prawidlowy wynik " + prawidlowyWynik);
+                    // System.out.println("Metoda Trapezów " + wynikMetodaTrapezow + ". Błąd " + bladTrapezow);
+                    // System.out.println("Metoda Simpsona " + wynikMetodaSimpsona + ". Błąd " + bladSimpsona);
+                    // System.out.println("Metoda CSI " + wynikMetodaCSI + ". Błąd " + bladCSI);
 
                     resultWriter.write(
                             liczbaPodzialow + "," + (i + 1) + "," + bladTrapezow + "," + bladSimpsona + "," + bladCSI + "\n"
